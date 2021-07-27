@@ -1,0 +1,27 @@
+.api-info {
+  padding-left: 15px;
+}
+
+.table-wrapper {
+  padding-left: 15px;
+  padding-bottom: 15px;
+}
+
+.endpoints-table {
+  width: 90%;
+  border-collapse: collapse;
+}
+
+.endpoints-table td {
+  padding: 15px;
+}
+
+.endpoints-table th {
+  font-weight: 700;
+  text-align: left;
+  padding: 15px;
+}
+
+.endpoints-table th, td {
+  border: 2px solid black;
+}
