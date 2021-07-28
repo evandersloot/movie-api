@@ -98,7 +98,7 @@ app.get('/movies/:title', (req, res) => {
   res.send('Successful GET of single movie by title.');
 });
 //Get list of movies by genre
-app.get('/genres', (req, res) => {
+app.get('/genres/:Name', (req, res) => {
   res.send('Successful GET of movie list by genre.');
 });
 //Get director name and info
