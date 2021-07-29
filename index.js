@@ -8,46 +8,46 @@ const app = express();
 //list of movies
 let bestMovies = [
   {
-    title: 'Captain America',
+    title: 'Captain America; The First Avenger',
     director: 'Joe Johnston',
     starring: 'Chris Evans, Tommy Lee Jones, Hayley Atwell, Stanley Tucci',
     released: 'July 22, 2011',
-    genres: 'Action, Science Fiction'
+    genres: 'Action'
   },
   {
     title: 'Tin Cup',
     director: 'Ron Shelton',
     starring: 'Kevin Costner, Renee Russo, Cheech Marin, Don Johnson',
     released: 'August 16, 1996',
-    genres: 'Sports, Comedy, Drama'
+    genres: 'Sports'
   },
   {
     title: 'Invincible',
     director: 'Ericson Core',
     starring: 'Mark Wahlberg, Greg Kinnear, Elizabeth Banks',
     released: 'August 25, 2006',
-    genres: 'Sports, Drama, Inspirational'
+    genres: 'Sports'
   },
   {
     title: 'End of Watch',
     director: 'David Ayer',
     starring: 'Jake Gyllenhaal, Michael Pena, Anna Kendrick',
     released: 'September 21, 2012',
-    genres: 'Action, Thriller'
+    genres: 'Action'
   },
   {
     title: 'Good Will Hunting',
     director: 'Gus Van Sant',
     starring: 'Matt Damon, Ben Affleck, Robin Williams, Minnie Driver',
     released: 'December 5, 1997',
-    genres: 'Drama, Romance, Indie'
+    genres: 'Drama'
   },
   {
-    title: 'Gross Pointe Blank',
-    director: 'George Armitage',
-    starring: 'John Cusak, Joan Cusak, Minnie Driver, Dan Aykroyd',
-    released: 'September 21, 2012',
-    genres: 'Comedy, Romance'
+    title: 'The Goonies',
+    director: 'Richard Donner',
+    starring: 'Sean Astin, Josh Brolin, Corey Feldman, Jeff Cohen',
+    released: 'June 7, 1985',
+    genres: 'Adventure'
   },
   {
     title: 'Lethal Weapon',
@@ -61,21 +61,21 @@ let bestMovies = [
     director: 'Peter Berg',
     starring: 'Mark Wahlberg, Taylor Kitsch, Eric Bana',
     released: 'January 10, 2014',
-    genres: 'Action, War, Drama'
+    genres: 'Action'
   },
   {
     title: 'Star Wars',
     director: 'George Lucas',
     starring: 'Mark Hamill, Harrison Ford, Carrie Fisher',
     released: 'May 25, 1977',
-    genres: 'Science Fiction, Adventure'
+    genres: 'Science Fiction'
   },
   {
     title: 'The Martian',
     director: 'Ridley Scott',
     starring: 'Matt Damon, Jeff Daniels, Jessica Chastain, Michael Pena',
     released: 'October 2, 2015',
-    genres: 'Science Fiction, Drama'
+    genres: 'Drama'
   }
 ];
 
