@@ -1,89 +1,26 @@
 const express = require('express'),
       morgan = require('morgan'),
       uuid = require('uuid'),
-      bodyParser = require('body-parser');
+      bodyParser = require('body-parser'),
+      mongoose = require('mongoose'),
+      models = require('./models.js');
+
+const Movies = models.Movie;
+const Users = models.User;
+const Genres = models.Genre;
+const Directors = models.Director;
+
+mongoose.connect('mongodb://localhost:27017/FlixSpotter', {
+  useNewUrlParser: true, useUnifiedTopology: true
+});
 
 const app = express();
-
-//list of movies
-let bestMovies = [
-  {
-    title: 'Captain America; The First Avenger',
-    director: 'Joe Johnston',
-    starring: 'Chris Evans, Tommy Lee Jones, Hayley Atwell, Stanley Tucci',
-    released: 'July 22, 2011',
-    genres: 'Action'
-  },
-  {
-    title: 'Tin Cup',
-    director: 'Ron Shelton',
-    starring: 'Kevin Costner, Renee Russo, Cheech Marin, Don Johnson',
-    released: 'August 16, 1996',
-    genres: 'Sports'
-  },
-  {
-    title: 'Invincible',
-    director: 'Ericson Core',
-    starring: 'Mark Wahlberg, Greg Kinnear, Elizabeth Banks',
-    released: 'August 25, 2006',
-    genres: 'Sports'
-  },
-  {
-    title: 'End of Watch',
-    director: 'David Ayer',
-    starring: 'Jake Gyllenhaal, Michael Pena, Anna Kendrick',
-    released: 'September 21, 2012',
-    genres: 'Action'
-  },
-  {
-    title: 'Good Will Hunting',
-    director: 'Gus Van Sant',
-    starring: 'Matt Damon, Ben Affleck, Robin Williams, Minnie Driver',
-    released: 'December 5, 1997',
-    genres: 'Drama'
-  },
-  {
-    title: 'The Goonies',
-    director: 'Richard Donner',
-    starring: 'Sean Astin, Josh Brolin, Corey Feldman, Jeff Cohen',
-    released: 'June 7, 1985',
-    genres: 'Adventure'
-  },
-  {
-    title: 'Lethal Weapon',
-    director: 'Richard Donner',
-    starring: 'Mel Gibson, Danny Glover, Gary Busey',
-    released: 'March 6, 1987',
-    genres: 'Action'
-  },
-  {
-    title: 'Lone Survivor',
-    director: 'Peter Berg',
-    starring: 'Mark Wahlberg, Taylor Kitsch, Eric Bana',
-    released: 'January 10, 2014',
-    genres: 'Action'
-  },
-  {
-    title: 'Star Wars',
-    director: 'George Lucas',
-    starring: 'Mark Hamill, Harrison Ford, Carrie Fisher',
-    released: 'May 25, 1977',
-    genres: 'Science Fiction'
-  },
-  {
-    title: 'The Martian',
-    director: 'Ridley Scott',
-    starring: 'Matt Damon, Jeff Daniels, Jessica Chastain, Michael Pena',
-    released: 'October 2, 2015',
-    genres: 'Drama'
-  }
-];
-
 //morgan
 app.use(morgan('common'));
 //Express
 app.use(express.static('public'));
 //bodyParser
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 //Get requests
 app.get('/', (req, res) => {
@@ -91,39 +28,184 @@ app.get('/', (req, res) => {
 });
 //Get list of movies
 app.get('/movies', (req, res) => {
-  res.json(bestMovies);
+  Movies.find()
+    .then((movies) => {
+      res.status(201).json(movies);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 //Get single movie
-app.get('/movies/:title', (req, res) => {
-  res.send('Successful GET of single movie by title.');
+app.get('/movies/:Title', (req, res) => {
+  Movies.findOne({ Title: req.params.Title })
+    .then((movie) => {
+      res.json(movie);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
-//Get list of movies by genre
+//Get data about film genres
+app.get('/genres', (req, res) => {
+  Genres.find()
+    .then((genres) => {
+      res.status(201).json(genres);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
+//Get data about a genre by name
 app.get('/genres/:Name', (req, res) => {
-  res.send('Successful GET of movie list by genre.');
+  Genres.findOne({ 'Name': req.params.Name })
+    .then((genre) => {
+      res.json(genre);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
+//Get list of all directors with information
+app.get('/directors', (req, res) => {
+  Directors.find()
+    .then((directors) => {
+      res.status(201).json(directors);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 //Get director name and info
 app.get('/directors/:Name', (req, res) => {
-  res.send('Successful GET of specific director name and information.');
+  Directors.findOne({ Name: req.params.Name })
+    .then((director) => {
+      res.json(director);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 //allow new user to register
 app.post('/users', (req, res) => {
-  res.send('You have signed up for our service!')
+  Users.findOne({ username: req.body.username })
+    .then((user) => {
+      if (user) {
+        return res.status(400).send(req.body.username + ' already exists');
+      } else {
+        Users
+          .create({
+            name: req.body.name,
+            username: req.body.username,
+            password: req.body.password,
+            email: req.body.email,
+            birthday: req.body.birthday,
+          })
+          .then((user) => {res.status(201).json(user) })
+        .catch((error) => {
+          console.error(error);
+          res.status(500).send('Error: ' + error);
+        })
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send('Error: ' + error);
+    })
 });
-//allow current user to udate information
-app.put('/users/:userName', (req, res) => {
-  res.send('Succefully updated your account information.');
+//Get all user
+app.get('/users', (req, res) => {
+  Users.find()
+    .then((users) => {
+      res.status(201).json(users);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
+//Get info on a specific user based on userName
+app.get('/users/:username', (req, res) => {
+  Users.findOne({ username: req.params.username })
+    .then((user) => {
+      res.json(user);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
+//allow user to update information by username
+app.put('/users/:username', (req, res) => {
+  Users.findOneAndUpdate({ username: req.params.username }, { $set:
+    {
+      name: req.body.name,
+      username: req.body.username,
+      password: req.body.password,
+      email: req.body.email,
+      birthday: req.body.birthday
+    }
+  },
+  { new: true },
+  (err, updatedUser) => {
+    if(err) {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    } else {
+      res.json(updatedUser);
+    }
+  });
 });
 //allow user to add a movie to favorites listen
-app.put('/users/:userName/movies/:movie', (req, res) => {
-  res.send('Movie is now in your favorites list.');
+app.post('/users/:username/movies/:movieID', (req, res) => {
+  Users.findOneAndUpdate({ username: req.params.username }, {
+    $push: { FavoriteMovies: req.params.movieID }
+  },
+  { new: true },
+  (err, updatedUser) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    } else {
+      res.json(updatedUser);
+    }
+  });
 });
 //allow user to delete a movie from favorites listen
-app.delete('/users/:userName/movies/remove/:movie', (req, res) => {
-  res.send('Movie has been removed from your favorites.');
+app.delete('/users/:username/movies/remove/:movieID', (req, res) => {
+  Users.findOneAndUpdate({ username: req.params.username }, {
+    $pull: { FavoriteMovies: req.params.movieID }
+  },
+  { new: true },
+  (err, updatedUser) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    } else {
+      res.json(updatedUser);
+    }
+  });
 });
 //allow user to delete account
-app.delete('/users/:userName', (req, res) => {
-  res.send('You have successfully unregistered.');
+app.delete('/users/:username', (req, res) => {
+  Users.findOneAndRemove({ username: req.params.username })
+    .then((user) => {
+      if (!user) {
+        res.status(400).send(req.params.username + ' was not found');
+      } else {
+        res.status(200).send(req.params.username + ' was deleted');
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 
 app.use((err, req, res, next) => {
