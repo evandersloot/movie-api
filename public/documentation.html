@@ -5,7 +5,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>Movie API Documentation</title>
-      <link rel="shortcut icon" href="./img/movies-icon.png" type="image/ico" />
+      <link rel="shortcut icon" href="img/movies-icon.png" type="image/ico" />
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
       <link rel="stylesheet" href="css/styles.css"/>
     </head>
@@ -13,8 +13,9 @@
       <header class="api-info">
         <h1> Movie API Documentation </h1>
         <p> The application will be built using Node.js on the server-side of a movie web application. </p>
+        <p> The application will utilize MongoDB for storing data and Monngoose for the Business Logic Layer.</p>
         <p> This interactive web application will allow users to sign up, build/edit a profile, and compile a list of their favorite movies </p>
-        <p> Once a user is signed up, the application will give users access to information about movie genres, directors, and movies themselve. </p>
+        <p> Once a user is signed up, the application will give users access to information about movie genres, directors, and movies themselves. </p>
       </header>
       <div class="table-wrapper">
         <h2>URL EndPoints and Methods used in API</h2>
@@ -44,11 +45,25 @@
               <td>JSON object holding data about a single movie. Includes description, genre, director, image URL.</td>
             </tr>
             <tr>
+              <td>Return data about all genres to the user</td>
+              <td>/genres</td>
+              <td>GET</td>
+              <td>none</td>
+              <td>JSON boject holding data about all genres, including name and description.</td>
+            </tr>
+            <tr>
               <td>Return data about a genre by name/title</td>
               <td>/genres/[name]</td>
               <td>GET</td>
               <td>none</td>
-              <td>JSON object holding data about movies listed by specified genre requested.</td>
+              <td>JSON object holding data about a specified genre requested.</td>
+            </tr>
+            <tr>
+              <td>Return data about all directors to the user.</td>
+              <td>/directors</td>
+              <td>GET</td>
+              <td>none</td>
+              <td>JSON object holding data about all directors, including name, bio, birth date, and death date if applicable.</td>
             </tr>
             <tr>
               <td>Return data about a director by name</td>
@@ -58,29 +73,35 @@
               <td>JSON object holding data about the name of the director requested. Includes bio, date of birth, date of death if applicable.</td>
             </tr>
             <tr>
+              <td>Return a list of all users</td>
+              <td>/users</td>
+              <td>GET</td>
+              <td>none</td>
+              <td>JSON object holding data about all users, including username, password, email, birthday, favorite movies, and id.</td>
+            <tr>
               <td>Allow new users to register</td>
               <td>/users</td>
               <td>POST</td>
-              <td>JSON object holding data about the new user to be added.</td>
               <td>JSON object holding data about the new user that was added, as well as apply a unique id number to the user.</td>
+              <td>Text message stating the user has successfully been added</td>
             </tr>
             <tr>
-              <td>Allow new users to update their user information</td>
+              <td>Allow users to update their user information</td>
               <td>/users/[username]</td>
               <td>PUT</td>
-              <td>none</td>
+              <td>JSON object specifying data to update.</td>
               <td>Text message stating the update was successful.</td>
             </tr>
             <tr>
               <td>Allow users to add a movie to their list of favorites</td>
-              <td>/users/[username]/movies/[movie]</td>
+              <td>/users/[username]/movies/[movieID]</td>
               <td>PUT</td>
               <td>JSON object holding data about the movie to be added.</td>
               <td>Text message stating the movie has been added.</td>
             </tr>
             <tr>
               <td>Allow users to remove a movie from their list of favorites</td>
-              <td>/users/[username]/movies/remove/[movie]</td>
+              <td>/users/[username]/movies/remove/[movieID]</td>
               <td>DELETE</td>
               <td>none</td>
               <td>Text message stating the movie has been removed from their favorites.</td>
