@@ -42,21 +42,21 @@
               <td>/movies/[title]</td>
               <td>GET</td>
               <td>none</td>
-              <td>JSON object holding data about a single movie. Includes description, genre, director, image URL.</td>
+              <td>JSON object holding data about a single movie. <br><em>e.g.<br>{ <br> _id: 1 <br> Title: "Star Wars: Episode IV - A New Hope",<br> Description: "Luke Skywalker joins forces with a Jedi Knight, a cocky pilot, a Wookiee and two droids"<br> }, <br> Genre { <br> Name: "Science Fiction",<br> Description: "Science fiction films are made of speculative fiction that contains imagined elements that don't exist in the real world."<br>},<br> Director: { <br> Name: "George Lucas",<br> Bio: "George Lucas is an American Director...", <br> Birth: "1944", <br> Death: " " <br>},<br> ImagePath: "starwars.png", <br>Featured: true <br>}</em></td>
             </tr>
             <tr>
               <td>Return data about all genres to the user</td>
               <td>/genres</td>
               <td>GET</td>
               <td>none</td>
-              <td>JSON boject holding data about all genres, including name and description.</td>
+              <td>JSON object holding data about all genres.</td>
             </tr>
             <tr>
               <td>Return data about a genre by name/title</td>
               <td>/genres/[name]</td>
               <td>GET</td>
               <td>none</td>
-              <td>JSON object holding data about a specified genre requested.</td>
+              <td>JSON object holding data about a specified genre requested.<br><em>e.g.<br>Genre { <br> Name: "Science Fiction",<br> Description: "Science fiction films are made of speculative fiction that contains imagined elements that don't exist in the real world."<br>}</em></td>
             </tr>
             <tr>
               <td>Return data about all directors to the user.</td>
@@ -70,7 +70,7 @@
               <td>/directors/[name]</td>
               <td>GET</td>
               <td>none</td>
-              <td>JSON object holding data about the name of the director requested. Includes bio, date of birth, date of death if applicable.</td>
+              <td>JSON object holding data about the name of the director requested. <br><em>e.g.<br>Director: {<br> Name: "George Lucas",<br> Bio: "George Lucas is an American Director...",<br> Birth: "1944",<br>Death: " "<br> }</em></td>
             </tr>
             <tr>
               <td>Return a list of all users</td>
@@ -78,6 +78,14 @@
               <td>GET</td>
               <td>none</td>
               <td>JSON object holding data about all users, including username, password, email, birthday, favorite movies, and id.</td>
+            </tr>
+            <tr>
+              <td>Return a single user</td>
+              <td>/users</td>
+              <td>GET</td>
+              <td>none</td>
+              <td>JSON object holding data about a single user.<br><em>e.g.<br>{<br>"FavoriteMovies" : [],<br>_id : "1",<br>Name : "Dave Smith",<br>Username : "davesmith",<br>Password : "ilikemovies",<br>Email : "davesmith@dave.com",<br>Birthday : "1972-01-01"<br>}</em></td>
+            </tr>
             <tr>
               <td>Allow new users to register</td>
               <td>/users</td>
