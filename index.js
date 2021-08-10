@@ -109,10 +109,10 @@ app.get('/directors/:Name', passport.authenticate('jwt', { session: false }), (r
 //allow new user to register
 app.post('/users',
   [
-    check('username', 'username is required').isLength({min: 5}),
-    check('username', 'username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
-    check('password', 'password is required.').not().isEmpty(),
-    check('email', 'email does not appear to be valid.').isEmail()
+    check('username', 'Username is required').isLength({min: 5}),
+    check('username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+    check('password', 'Password is required.').not().isEmpty(),
+    check('email', 'Email does not appear to be valid.').isEmail()
   ], (req, res) => {
 
     let errors = validationResult(req);
@@ -175,11 +175,11 @@ app.get('/users/:username', passport.authenticate('jwt', { session: false }), (r
 //allow user to update information by username
 app.put('/users/:username',
 [
-  check('username', 'Username is required').isLength([min: 5]),
+  check('username', 'Username is required').isLength({min: 5}),
   check('username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
   check('password', 'Password is required.').not().isEmpty(),
   check('email', 'Email does not appear to be valid.').isEmail()
-] passport.authenticate('jwt', { session: false }), (req, res) => {
+], passport.authenticate('jwt', { session: false }), (req, res) => {
 
   let errors = validationResult(req);
 
