@@ -11,13 +11,13 @@ const Users = models.User;
 const Genres = models.Genre;
 const Directors = models.Director;
 
-// mongoose.connect('mongodb://localhost:27017/FlixSpotter', {
-//   useNewUrlParser: true, useUnifiedTopology: true
-// });
-
-mongoose.connect(process.env.CONNECTION_URI, {
-  userNewUrlParser: true, useUnifiedTopology: true
+mongoose.connect('mongodb://localhost:27017/FlixSpotter', {
+  useNewUrlParser: true, useUnifiedTopology: true
 });
+
+// mongoose.connect(process.env.CONNECTION_URI, {
+//   userNewUrlParser: true, useUnifiedTopology: true
+// });
 
 const app = express();
 //morgan
@@ -121,7 +121,7 @@ app.post('/users',
       return res.status(422).json({ errors: errors.array() });
     }
 
-  let hashedPassword = Users.hashedPassword(req.body.Password);
+  let hashedPassword = Users.hashPassword(req.body.password);
 
   Users.findOne({ username: req.body.username })
     .then((user) => {
