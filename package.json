@@ -1,6 +1,9 @@
 {
-  "name": "FlixSpotter",
+  "name": "movie_api",
   "version": "1.0.0",
+  "engines": {
+    "node": "v14.17.3"
+  },
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
@@ -10,7 +13,7 @@
     "url": "git+https://github.com/evandersloot/movie-api.git"
   },
   "keywords": [],
-  "author": "Eric",
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/evandersloot/movie-api/issues"
