@@ -1,5 +1,5 @@
 {
-  "name": "movie_api",
+  "name": "FlixSpotter",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,7 @@
     "url": "git+https://github.com/evandersloot/movie-api.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Eric",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/evandersloot/movie-api/issues"
