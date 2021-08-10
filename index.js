@@ -15,7 +15,7 @@ const Directors = models.Director;
 //   useNewUrlParser: true, useUnifiedTopology: true
 // });
 
-mongoos.connect('process.env.CONNECTION_URI', {
+mongoose.connect('process.env.CONNECTION_URI', {
   userNewUrlParser: true, useUnifiedTopology: true
 });
 
