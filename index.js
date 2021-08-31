@@ -41,7 +41,7 @@ app.get('/', (req, res) => {
   res.send('Welcome to the world of Movies!');
 });
 //Get list of movies
-app.get('/movies',  (req, res) => {
+app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find()
     .then((movies) => {
       res.status(201).json(movies);
@@ -112,6 +112,7 @@ app.post('/users',
     check('username', 'Username is required').isLength({min: 5}),
     check('username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
     check('password', 'Password is required.').not().isEmpty(),
+    check('password', 'Password is required.').isLength({min: 8}),
     check('email', 'Email does not appear to be valid.').isEmail()
   ], (req, res) => {
 
